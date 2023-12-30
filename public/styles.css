@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Poppins:wght@300;400&display=swap');
+*{
+    padding:0;
+    margin: 0;
+    
+}
+html{
+    background-color: black;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+}
+.left{
+    width: 25vw;
+    padding:5px ;
+}
+.right{
+    width: 75vw;
+    margin:12px 2px;
+}
+.home{
+
+}
+.home ul{
+    margin: 2px;
+    padding:3px 10px;
+}
+.home ul li{
+    display: flex;
+    gap: 15px;
+    width: 14px;
+    list-style: none;
+    padding-bottom: 14px;
+    font-weight: bold;
+}
+.heading{
+    display: flex;
+    gap:15px;
+    width: 100%;
+    font-weight: bold;
+    align-items: center;
+    font-size: 10px;
+
+}
+.library{
+    padding-top:5px;
+    min-height: 70vh;
+    position: relative;
+}
+.logo{
+    margin-left: 4px;
+}
+.heading img{
+    width: 30px;
+}
+.footer{
+    font-size: 10px;
+    color: grey;
+    gap: 13px;
+    position: absolute;
+    bottom: 0;
+}
+.header{
+    justify-content: space-between;
+    background-color: rgb(46, 46, 46);
+    border-radius: 8px 8px 0 0;
+}
+.footer a{
+    color: grey;
+}
+.header >*{
+    padding: 20px;
+}
+.spotify-playlist{
+    padding: 6px;
+}
