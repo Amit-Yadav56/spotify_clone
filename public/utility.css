@@ -1,6 +1,6 @@
 
 .border{
-    border: 3px solid blue;
+    border: 3px solid rgb(7, 206, 7);
     margin: 3px;
 }
 .to-right{
@@ -41,4 +41,7 @@
 }
 .p-1{
     padding:10px;
+}
+.grid{
+    display: grid;
 }
