@@ -19,9 +19,6 @@ body{
     margin:12px 2px;
     position: relative;
 }
-.home{
-
-}
 .home ul{
     margin: 2px;
     padding:3px 10px;
@@ -76,8 +73,6 @@ body{
 }
 .spotify-playlist{
     padding: 6px;
-}
-.card-container{
 }
 .card{
     display: inline-table;
@@ -144,10 +139,11 @@ body{
 }
 .playbar{
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
+    right: 10px;
     background-color: rgb(47, 150, 47);
-    width: 100%;
     padding: 10px;
+    left: 10px;
 }
 .songbuttons{
     justify-content: center;
