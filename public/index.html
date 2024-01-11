@@ -10,6 +10,9 @@
 <body>
     <div class="container flex bg-black">
         <div class="left bg-black" >
+            <div class="close">
+                <img class="invert" src="/images/close.svg" alt="">
+            </div>
             <div class="home bg-grey round m-1 p-1">
                 <img src="../images/spotify-logo.svg" alt="cannot load" class="logo invert m-2">
                 <ul>
@@ -58,8 +61,13 @@
         <div class="right bg-grey round">
             <div class="header flex ">
                 <div class="nav">
+                    <div class="hamburgercontain flex">
+                        <img class="invert hamburger" src="/images/hanburger.svg" alt="">
+                    
                     <img src="../images/left-arrow.png" alt=""class="icon invert">
                     <img src="../images/right-arrow.png" alt=""class="icon invert">
+                    </div>
+                    
                 </div>
                 <div class="buttons">
                     <button class="signupBtn">Sign Up</button>
@@ -118,18 +126,7 @@
                         <h2>Dinner & Chill</h2>
                         <p>Gentle Indie songs for a relaxed dinner.</p>
                     </div>
-                    <div class="card m-1 p-1 round">
-                        <img src="../images/play-button.svg" alt="" class="play">
-                        <img src="https://i.scdn.co/image/ab67706f000000024b04e77913de1fc2a4b819df" alt="" > 
-                        <h2>Beer & Wings</h2>
-                        <p>Cold beer. Hot wings. Great rock.</p>
-                    </div>
-                    <div class="card m-1 p-1 round">
-                        <img src="../images/play-button.svg" alt="" class="play">
-                        <img src="	https://i.scdn.co/image/ab67706f000000029b14583a15b3047fee20d36b" alt="" > 
-                        <h2>Latin Dinner</h2>
-                        <p>You bring the ingrediants, we bring the flavor ...</p>
-                    </div>
+                    
                     <div class="card m-1 p-1 round">
                         <img src="../images/play-button.svg" alt="" class="play">
                         <img src="	https://i.scdn.co/image/ab67706f000000029b14583a15b3047fee20d36b" alt="" > 
@@ -139,20 +136,27 @@
                 </div>
             </div>
             <div class="playbar">
-                <div class="songbuttons flex">
-
-                    <div class="songinfo">
+                <div class="seekBar">
+                    <div class="circle">
 
                     </div>
+                </div>
+                <div class="abovebar flex">
 
-                    <img src="../images/previous.svg" alt="" class="prevsong">
-                    
-                    <button onclick="main()"><img src="../images/play-song.svg" alt="" class="playsong"></button>
-                    
-                    <img src="../images/next.svg" alt="" class="nextsong">
-
+                    <div class="songinfo">
+    
+                    </div>
+    
+                    <div class="songbuttons flex">
+                        <img width="20" src="../images/previous.svg" alt="" id="prevsong">
+    
+                        <button class="play-button"><img width="20" src="../images/play-song.svg" alt="" id="playsong"></button>
+    
+                        <img width="20" src="../images/next.svg" alt="" id="nextsong">
+    
+                    </div>
                     <div class="songtime">
-
+    
                     </div>
                 </div>
             </div>
