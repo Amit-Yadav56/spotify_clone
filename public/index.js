@@ -68,13 +68,46 @@ const playMusic=(track,pause=false)=>{
     document.querySelector(".songtime").innerHTML=`00:00/00:00`
 
 }
+async function displayAlbums(){
+    let a= await fetch(`http://127.0.0.1:5500/songs/`);
+    let response=await a.text();
+    let cardContainer=document.querySelector(".card-container")
+    let div=document.createElement("div");
+    div.innerHTML=response;
+    let anchors=div.getElementsByTagName("a")
+    Array.from(anchors).forEach(async e=>{
+        if(e.href.includes("/songs/")){
+            let folder=(e.href.split("/").slice(-1)[0])
+            //get meta data of the folder
+            let a= await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+            let response=await a.json();
+            console.log(response)
+            cardContainer.innerHTML=cardContainer.innerHTML+`<div data-folder="${folder}" class="card m-1 p-1 round">
+            <img src="../images/play-button.svg" alt="" class="play">
+            <img src="/songs/${folder}/cover.jpeg" alt="" > 
+            <h2>${response.title}</h2>
+            <p>${response.description}</p>
+        </div>`
+        }   
+    })
+
+    //load the library when card is clicked
+    Array.from(document.getElementsByClassName("card")).forEach(e=>{
+        e.addEventListener("click",async item=>{
+            songs =await getSongs(`${item.currentTarget.dataset.folder}`);
+            
+        })
+    })
+    console.log(anchors)
+
+}
 async function main(){
     
     // get list of all songs
     songs =await getSongs('my');
     playMusic(songs[0],true)
     // show all songs on playlist
-    
+    displayAlbums()
 
     //Attach a event listener for prev play next
     playsong.addEventListener("click",()=>{
@@ -146,13 +179,7 @@ async function main(){
         currentSong.volume=parseInt(e.target.value)/100
     })
 
-    //load the library when card is clicked
-    Array.from(document.getElementsByClassName("card")).forEach(e=>{
-        e.addEventListener("click",async item=>{
-            songs =await getSongs(`${item.currentTarget.dataset.folder}`);
-            
-        })
-    })
+    
 
 }
 main();
