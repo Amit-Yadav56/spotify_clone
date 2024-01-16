@@ -1,9 +1,7 @@
 console.log("js")
-let songs;
-let currentFolder;
+let songs
+let currentFolder
 let currentSong=new Audio();
-
-
 function secondsToMinutesAndSeconds(seconds) {
     if(isNaN(seconds)||seconds<0){
         return "00:00"
@@ -20,25 +18,21 @@ function secondsToMinutesAndSeconds(seconds) {
 
 
 async function getSongs(folder){
-    
     currentFolder=folder
-    let a= await fetch(`/songs/${currentFolder}/`);
+    let a= await fetch(`http://127.0.0.1:5500/songs/${currentFolder}/`);
     let response=await a.text();
     let div=document.createElement("div");
     div.innerHTML=response;
     let as=div.getElementsByTagName('a');
-    songs=[];
+    songs=[]
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if(element.href.endsWith(".mp3")){
-            songs.push(element.href.split(`/songs/${currentFolder}/`)[1]);
+            songs.push(element.href.split(`songs/${currentFolder}/`)[1]);
         }
     }
-    
-    
     let songUL=document.querySelector(".songlist").getElementsByTagName("ul")[0]
-    songUL.innerHTML=""
-    
+    songUL.innerHTML= ""
     for(const song of songs){
         songUL.innerHTML = songUL.innerHTML + `<li class="flex">
                             <img src="/images/music.svg" class="invert" alt="">
@@ -56,16 +50,16 @@ async function getSongs(folder){
     //attach an event listener to each song
     Array.from(document.querySelector(".songlist").getElementsByTagName('li')).forEach( e=> {
         e.addEventListener("click",element=>{
+            console.log(e.querySelector(".info").firstElementChild.innerHTML.trim()); 
             playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
 
         });
     });
-    console.log(songs)
-    
+    return songs;
 }
 const playMusic=(track,pause=false)=>{
     // let audio=new Audio("/songs/"+track)
-    currentSong.src=`songs/${currentFolder}/`+track
+    currentSong.src=`/songs/${currentFolder}/`+track
     if(!pause){
         currentSong.play()
         playsong.src="/images/pause.svg"
@@ -74,47 +68,13 @@ const playMusic=(track,pause=false)=>{
     document.querySelector(".songtime").innerHTML=`00:00/00:00`
 
 }
-async function displayAlbums(){
-    let cardContainer=document.querySelector(".card-container")
-    let a= await fetch(`/songs/`);
-    let response=await a.text();
-    let div=document.createElement("div");
-    div.innerHTML=response;
-    let anchors=div.getElementsByTagName("a")
-    let array=Array.from(anchors)
-    for (let index = 0; index < array.length; index++) {
-        const e = array[index];
-            
-        
-        if(e.href.includes("/songs") ){
-            let folder=e.href.split("/").slice(-1)[0]
-            //get the meta data of the folder
-            let a= await fetch(`/${folder}/info.json`);
-            let response=await a.json();
-            
-            cardContainer.innerHTML=cardContainer.innerHTML+`<div data-folder="my" class="card m-1 p-1 round">
-            <img src="../images/play-button.svg" alt="" class="play">
-            <img src="/songs/${folder}/cover.jpeg" alt="" > 
-            <h2>${response.title}</h2>
-            <p>${response.description}</p>
-        </div>`
-        }
-
-    }
-    //load the library when card is clicked
-    Array.from(document.getElementsByClassName("card")).forEach(e=>{
-        e.addEventListener("click",async item=>{
-            console.log("Fetching songs")
-            songs =await getSongs(`/${item.currentTarget.dataset.folder}`);
-            playMusic(songs[0])
-        })
-    })
-}
 async function main(){
     
-    await getSongs("my")
-    //display all albums on the page
-    await displayAlbums()
+    // get list of all songs
+    songs =await getSongs('my');
+    playMusic(songs[0],true)
+    // show all songs on playlist
+    
 
     //Attach a event listener for prev play next
     playsong.addEventListener("click",()=>{
@@ -151,8 +111,7 @@ async function main(){
     //add event event listener to previous
     prevsong.addEventListener("click",()=>{
         console.log("Previous button clicked")
-        currentSong.pause()
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        let index = songs.indexOf((currentSong.src.split("/").slice(-1))[0])
         if((index-1)>=0){
             playMusic(songs[index-1])
         }
@@ -160,8 +119,7 @@ async function main(){
     //add event event listener to next
     nextsong.addEventListener("click",()=>{
         console.log("next button clicked")
-        currentSong.pause()
-        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        let index = songs.indexOf((currentSong.src.split("/").slice(-1))[0])
         if((index+1)<songs.length){
             playMusic(songs[index+1])
         }
@@ -188,7 +146,13 @@ async function main(){
         currentSong.volume=parseInt(e.target.value)/100
     })
 
-    
+    //load the library when card is clicked
+    Array.from(document.getElementsByClassName("card")).forEach(e=>{
+        e.addEventListener("click",async item=>{
+            songs =await getSongs(`${item.currentTarget.dataset.folder}`);
+            
+        })
+    })
 
 }
 main();
