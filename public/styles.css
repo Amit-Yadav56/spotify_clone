@@ -271,9 +271,11 @@ background: #888;
 .volume input{
     width:100px;
     display: none;
+    cursor: pointer;
+    accent-color: rgb(24, 24, 24);
 }
-.volume.img{
-
+.volume img{
+    cursor: pointer;
 }
 .abovebar{
     justify-content: space-between;
@@ -288,6 +290,7 @@ background: #888;
     align-items: center;
     gap: 14px;
 }
+
 .close{
     display: none;
 }

@@ -31,6 +31,10 @@ async function getSongs(folder){
             songs.push(element.href.split(`songs/${currentFolder}/`)[1]);
         }
     }
+
+
+
+    //show songs in the playlist
     let songUL=document.querySelector(".songlist").getElementsByTagName("ul")[0]
     songUL.innerHTML= ""
     for(const song of songs){
@@ -50,7 +54,6 @@ async function getSongs(folder){
     //attach an event listener to each song
     Array.from(document.querySelector(".songlist").getElementsByTagName('li')).forEach( e=> {
         e.addEventListener("click",element=>{
-            console.log(e.querySelector(".info").firstElementChild.innerHTML.trim()); 
             playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
 
         });
@@ -88,7 +91,6 @@ async function displayAlbums(){
             //get meta data of the folder
             let a= await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
             let response=await a.json();
-            console.log(response)
             cardContainer.innerHTML=cardContainer.innerHTML+`<div data-folder="${folder}" class="card m-1 p-1 round">
             <img src="../images/play-button.svg" alt="" class="play">
             <img src="/songs/${folder}/cover.jpeg" alt="" > 
@@ -103,10 +105,9 @@ async function displayAlbums(){
     Array.from(document.getElementsByClassName("card")).forEach(e=>{
         e.addEventListener("click",async item=>{
             songs =await getSongs(`${item.currentTarget.dataset.folder}`);
-            
+            playMusic(songs[0])
         })
     })
-    console.log(anchors)
 
 }
 async function main(){
