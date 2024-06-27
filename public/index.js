@@ -89,7 +89,7 @@ async function displayAlbums(){
         if(element.href.includes("/songs/")){
             let folder=(element.href.split("/").slice(-1)[0])
             //get meta data of the folder
-            let a= await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+            let a= await fetch(`https://amit-yadav56.github.io/spotify_clone/songs/${folder}/info.json`);
             let response=await a.json();
             cardContainer.innerHTML=cardContainer.innerHTML+`<div data-folder="${folder}" class="card m-1 p-1 round">
             <img src="../images/play-button.svg" alt="" class="play">
