@@ -19,7 +19,7 @@ function secondsToMinutesAndSeconds(seconds) {
 
 async function getSongs(folder){
     currentFolder=folder
-    let a= await fetch(`http://127.0.0.1:5500/songs/${currentFolder}/`);
+    let a= await fetch(`https://amit-yadav56.github.io/spotify_clone/songs/${currentFolder}/`);
     let response=await a.text();
     let div=document.createElement("div");
     div.innerHTML=response;
@@ -74,7 +74,7 @@ const playMusic=(track,pause=false)=>{
 }
 async function displayAlbums(){
 
-    let a= await fetch(`http://127.0.0.1:5500/songs/`);
+    let a= await fetch(`https://amit-yadav56.github.io/spotify_clone/songs/`);
     let response=await a.text();
     let cardContainer=document.querySelector(".card-container")
     let div=document.createElement("div");
